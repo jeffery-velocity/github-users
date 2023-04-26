@@ -37,6 +37,8 @@ const UserList: React.FC = () => {
     getUsers({ variables: { searchQuery } });
   };
 
+  const users = data ? data.search.nodes : [];
+
   return (
     <div className='p-8'>
       <form onSubmit={handleSubmit}>
@@ -46,19 +48,17 @@ const UserList: React.FC = () => {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
-      {data && (
-        <ul>
-          {data.search.nodes.map(user => (
-            <li key={user.id} className='p-2 border-b'>
-              <img src={user.avatarUrl} alt={`${user.login}'s avatar`} width={60} />
-              <div>
-                <p>{user.name || user.login}</p>
-                <a href={`https://github.com/${user.login}`} className='text-blue-500'>{user.login}</a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {users.filter(e => !!e.login).map(user => (
+          <li key={user.id} className='p-2 border-b'>
+            <img src={user.avatarUrl} alt={`${user.login}'s avatar`} width={60} />
+            <div>
+              <p>{user.name || user.login}</p>
+              <a href={`https://github.com/${user.login}`} className='text-blue-500'>{user.login}</a>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
