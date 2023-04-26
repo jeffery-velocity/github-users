@@ -49,7 +49,7 @@ const UserList: React.FC = () => {
         <ul>
           {data.search.nodes.map(user => (
             <li key={user.id}>
-              <img src={user.avatarUrl} alt={`${user.login}'s avatar`} />
+              <img src={user.avatarUrl} alt={`${user.login}'s avatar`} width={60} />
               <div>
                 <p>{user.name || user.login}</p>
                 <p>{user.login}</p>
