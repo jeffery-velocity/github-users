@@ -38,21 +38,22 @@ const UserList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='p-8'>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={searchQuery} onChange={event => setSearchQuery(event.target.value)} />
-        <button type="submit">Search</button>
+        <h4 className='mb-4'>Search Github Users</h4>
+        <input type="text" className='border border-black p-2' value={searchQuery} onChange={event => setSearchQuery(event.target.value)} />
+        <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Search</button>
       </form>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
       {data && (
         <ul>
           {data.search.nodes.map(user => (
-            <li key={user.id}>
+            <li key={user.id} className='p-2 border-b'>
               <img src={user.avatarUrl} alt={`${user.login}'s avatar`} width={60} />
               <div>
                 <p>{user.name || user.login}</p>
-                <p>{user.login}</p>
+                <a href={`https://github.com/${user.login}`} className='text-blue-500'>{user.login}</a>
               </div>
             </li>
           ))}
